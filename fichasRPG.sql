@@ -38,3 +38,28 @@ insert into clase (rider, 1, 1.1, 1, 1, 1.1, 2, 0.9);
 insert into clase (assassin, 1.1, 0.9, 1.1, 1, 1, 2, 1.1);
 insert into clase (berserker, 2, 2, 2, 2, 2, 2, 2);
 insert into clase (caster, 1, 1.1, 1, 0.9, 1, 2, 1);
+
+create table status(
+nomePersonagemStatus varchar(50) primary key,
+nivel int not null,
+xp int,
+vidaMax int not null,
+classeArmadura int not null,
+iniciativa int,
+deslocamento float not null,
+salvaGuarda varchar(12) not null,
+pericia1 varchar(12) not null,
+pericia2 varchar(12) not null,
+pericia3 varchar(12) not null,
+forca int not null,
+forca int not null,
+contituicao int not null,
+resistencia int not null,
+inteligencia int not null,
+sabedoria int not null,
+carisma int not null,
+velocidade int not null,
+destreza int not null,
+estamina int not null,
+mana int not null,
+)
