@@ -12,13 +12,15 @@ luz float,
 eletricidade float
 );
 
-insert into elementos (fogo, 1, 0.5, 2, 0.75, 1.5, 1.5, 1.5);
-insert into elementos (agua, 2, 0.75, 1.25, 1.75, 1, 1, 2);
-insert into elementos (vento, 2, 0.75, 1, 0.75, 1, 1, 0.5);
-insert into elementos (terra, 2, 0.5, 0.75, 1, 1, 1, 2.5);
-insert into elementos (escuridao, 0.75, 1, 1, 1, 2, 2, 0.75);
-insert into elementos (luz, 1.5, 1, 1, 1, 2, 1, 1);
-insert into elementos (eletricidade, 1.25, 2.5, 0.25, 0, 1.5, 1.5, 1)
+insert into elementos values
+(fogo, 1, 0.5, 2, 0.75, 1.5, 1.5, 1.5),
+(agua, 2, 0.75, 1.25, 1.75, 1, 1, 2),
+(vento, 2, 0.75, 1, 0.75, 1, 1, 0.5),
+(terra, 2, 0.5, 0.75, 1, 1, 1, 2.5),
+(escuridao, 0.75, 1, 1, 1, 2, 2, 0.75),
+(luz, 1.5, 1, 1, 1, 2, 1, 1),
+(eletricidade, 1.25, 2.5, 0.25, 0, 1.5, 1.5, 1)
+;
 
 create table clase(
 classeAtacante varchar(12)primary key,
@@ -31,13 +33,14 @@ berserker float,
 caster float
 );
 
-insert into clase (saber, 1, 0.9, 1.1, 1, 1.1, 2, 1.1);
-insert into clase (archer, 1.1, 1, 0.9, 1.1, 1, 2, 1);
-insert into clase (lancer, 0.9, 1, 1, 1, 0.9, 2, 1.1);
-insert into clase (rider, 1, 1.1, 1, 1, 1.1, 2, 0.9);
-insert into clase (assassin, 1.1, 0.9, 1.1, 1, 1, 2, 1.1);
-insert into clase (berserker, 2, 2, 2, 2, 2, 2, 2);
-insert into clase (caster, 1, 1.1, 1, 0.9, 1, 2, 1);
+insert into classe values (saber, 1, 0.9, 1.1, 1, 1.1, 2, 1.1),
+(archer, 1.1, 1, 0.9, 1.1, 1, 2, 1),
+(lancer, 0.9, 1, 1, 1, 0.9, 2, 1.1),
+(rider, 1, 1.1, 1, 1, 1.1, 2, 0.9),
+(assassin, 1.1, 0.9, 1.1, 1, 1, 2, 1.1),
+(berserker, 2, 2, 2, 2, 2, 2, 2),
+(caster, 1, 1.1, 1, 0.9, 1, 2, 1)
+;
 
 create table status(
 nomePersonagemStatus varchar(50) primary key,
@@ -61,5 +64,5 @@ carisma int not null,
 velocidade int not null,
 destreza int not null,
 estamina int not null,
-mana int not null,
+mana int not null
 )
