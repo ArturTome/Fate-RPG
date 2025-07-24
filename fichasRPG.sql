@@ -58,7 +58,6 @@ pericia1 varchar(12) not null,
 pericia2 varchar(12) not null,
 pericia3 varchar(12) not null,
 forca int not null,
-forca int not null,
 contituicao int not null,
 resistencia int not null,
 inteligencia int not null,
@@ -69,3 +68,15 @@ destreza int not null,
 estamina int not null,
 mana int not null
 );
+
+insert into status values
+(1, 'Astolfo (Saber)', 120, null, 300, 50, 15, 'carisma', 'adestramento', 
+'atletismo', 'acrobacia', 100, 100, 90, 100, 100, 150, 120, 500, 500)
+
+create table fantasmaNobre(
+idFantasmaNobre int primary key,
+nomeFantasmaNobre varchar(50) unique key,
+aparencia varchar(9999) not null,
+passivas varchar(9999),
+ativas varchar(9999)
+)
