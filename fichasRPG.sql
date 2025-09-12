@@ -4,13 +4,13 @@ use fichas;
 create table elementos(
 idElementos int primary key,
 elementoAtacante varchar(12) unique key,
-fogo float,
-agua float,
-vento float,
-terra float,
-escuridao float,
-luz float,
-eletricidade float
+fogo float not null,
+agua float not null,
+vento float not null,
+terra float not null,
+escuridao float not null,
+luz float not null,
+eletricidade float not null
 );
 
 insert into elementos values
@@ -26,13 +26,13 @@ insert into elementos values
 create table classe(
 idClasse int primary key,
 classeAtacante varchar(12) unique key,
-saber float,
-archer float,
-lancer float,
-rider float,
-assassin float,
-berserker float,
-caster float
+saber float not null,
+archer float not null,
+lancer float not null,
+rider float not null,
+assassin float not null,
+berserker float not null,
+caster float not null
 );
 
 insert into classe values 
@@ -45,14 +45,38 @@ insert into classe values
 (7,'caster', 1, 1.1, 1, 0.9, 1, 2, 1)
 ;
 
+create table racas (
+idRacas int primary key,
+nome varchar (50) not null,
+modificadorAtributo1 varchar (12), -- só o nome do atributo
+modificadorAtributoPorcentagem1 float, -- colocar a porcentagem em decimal
+modificadorAtributo2 varchar (12),
+modificadorAtributoPorcentagem2 float,
+modificadorAtributo3 varchar (12),
+modificadorAtributoPorcentagem3 float,
+modificadorAtributo4 varchar (12),
+modificadorAtributoPorcentagem4 float,
+habilidade1 varchar (200), -- nome e explicação da habilidade e o nome da habilidade fica entre aspas com dois pontos
+habilidade2 varchar (200),
+habilidade3 varchar (200),
+habilidade4 varchar (200)
+);
+
+create table sobreposicao (
+idSobreposicao int primary key,
+nome varchar (50) not null,
+descricao varchar (300) not null
+);
+
 create table status(
-nomePersonagemStatus varchar(50) primary key,
+idStatus int primary key,
+karma int, -- pra permitir os negativos
 nivel int not null,
 xp int,
 vidaMax int not null,
 classeArmadura int not null,
-iniciativa int,
-deslocamento float not null,
+iniciativa int, -- nem todos tem modificador de iniciativa
+deslocamento float not null, -- em metros/minuto
 salvaGuarda varchar(12) not null,
 pericia1 varchar(12) not null,
 pericia2 varchar(12) not null,
@@ -69,14 +93,33 @@ estamina int not null,
 mana int not null
 );
 
-insert into status values
-(1, 'Astolfo (Saber)', 120, null, 300, 50, 15, 'carisma', 'adestramento', 
-'atletismo', 'acrobacia', 100, 100, 90, 100, 100, 150, 120, 500, 500)
-
 create table fantasmaNobre(
 idFantasmaNobre int primary key,
-nomeFantasmaNobre varchar(50) unique key,
-aparencia varchar(9999) not null,
-passivas varchar(9999),
-ativas varchar(9999)
+nome varchar(50) not null,
+aparencia varchar(2000) not null,
+passivas varchar(2000),
+ativas varchar(2000)
+);
+
+create table dadosPessoais (
+idDadosPessoais int primary key,
+nomePersonagem varchar(50) not null,
+nomeJogador varchar (50) not null,
+aparencia varchar(1000),
+historia varchar (3000),
+caracteristicasETalentos varchar (1000),
+antecedente varchar (30),
+sobreposicao int unique key,
+tesouros varchar (1000)
+);
+
+create table Personagem (
+idPersonagem int primary key,
+status int unique key,
+elemento int unique key,
+classe int unique key,
+fantasmaNobre int unique key,
+dadosPessoais int unique key,
+raca integer unique key,
+dataDaCriacao data
 )
