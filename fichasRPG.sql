@@ -62,11 +62,29 @@ habilidade3 varchar (200),
 habilidade4 varchar (200)
 );
 
+insert into racas values 
+(1, 'Humano', 'Atributos gerais', 1.05, 'classe de armadura', +5, null, null, null, null, '"Agilidade": Em testes de velocidade tem vantagem de +2', null,null, null)
+;
+
+create table pericias (
+idPericias int primary key,
+nome varchar (20),
+modificadorAtributo varchar (12)
+)
+
+insert into pericias values
+(1, 'Acrobacia', 'Destreza')
+;
+
 create table sobreposicao (
 idSobreposicao int primary key,
 nome varchar (50) not null,
 descricao varchar (300) not null
 );
+
+insert into sobreposicao values
+(1,"Sangue cru", 'aumenta o lifesteel de 5%')
+;
 
 create table status(
 idStatus int primary key,
@@ -78,9 +96,9 @@ classeArmadura int not null,
 iniciativa int, -- nem todos tem modificador de iniciativa
 deslocamento float not null, -- em metros/minuto
 salvaGuarda varchar(12) not null,
-pericia1 varchar(12) not null,
-pericia2 varchar(12) not null,
-pericia3 varchar(12) not null,
+pericia1 int not null,
+pericia2 int not null,
+pericia3 int not null,
 forca int not null,
 contituicao int not null,
 resistencia int not null,
@@ -90,7 +108,11 @@ carisma int not null,
 velocidade int not null,
 destreza int not null,
 estamina int not null,
-mana int not null
+mana int not null,
+
+foreign key (pericia1) references (idPericias),
+foreign key (pericia2) references (idPericias),
+foreign key (pericia3) references (idPericias)
 );
 
 create table fantasmaNobre(
@@ -109,11 +131,13 @@ aparencia varchar(1000),
 historia varchar (3000),
 caracteristicasETalentos varchar (1000),
 antecedente varchar (30),
-sobreposicao int unique key,
-tesouros varchar (1000)
+sobreposicao int,
+tesouros varchar (1000),
+
+foreign key (sobreposicao) references (idSobreposicao)
 );
 
-create table Personagem (
+create table personagem (
 idPersonagem int primary key,
 status int unique key,
 elemento int unique key,
@@ -121,5 +145,16 @@ classe int unique key,
 fantasmaNobre int unique key,
 dadosPessoais int unique key,
 raca integer unique key,
-dataDaCriacao data
+dataDaCriacao date,
+
+foreign key (status) references (idStatus),
+foreign key (elemento) references (idElementos),
+foreign key (classe) references (idClasse),
+foreign key (fantasmaNobre) references (idFantasmaNobre),
+foreign key (dadosPessoais) references (idDadosPessoais),
+foreign key (raca) references (idRacas)
 )
+
+insert into personagem values
+(1,1,2,2,1,1,1,null)
+;
