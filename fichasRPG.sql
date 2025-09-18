@@ -74,6 +74,9 @@ modificadorAtributo varchar (12)
 
 insert into pericias values
 (1, 'Acrobacia', 'Destreza')
+(2, 'Furtividade', 'Destreza')
+(3, 'Investigação', 'inteligencia')
+(4, 'Sobrevivencia', 'sabedoria')
 ;
 
 create table sobreposicao (
@@ -89,6 +92,7 @@ insert into sobreposicao values
 create table status(
 idStatus int primary key,
 karma int, -- pra permitir os negativos
+NT int not null,
 nivel int not null,
 xp int,
 vidaMax int not null,
@@ -115,6 +119,10 @@ foreign key (pericia2) references (idPericias),
 foreign key (pericia3) references (idPericias)
 );
 
+insert into status values
+(1, -5, 0, 2, 55, 30, 2, 0, 8, 'inteligencia', 2, 3, 4, 15, 20, 15, 31, 25, 20, 20, 25, 100, 100)
+;
+
 create table fantasmaNobre(
 idFantasmaNobre int primary key,
 nome varchar(50) not null,
@@ -123,19 +131,68 @@ passivas varchar(2000),
 ativas varchar(2000)
 );
 
+insert into fantasmaNobre
+(1, 'Corrente Unica', 'Variante similar do rifle finlandez Mosin-Nagant',
+'"Memorias de guerra"; Ao disparar uma bala, roda um D20 para saber onde a bala vai acertar, 
+1~5 -> -d4, 
+6~10 -> neutro, 
+11~15 -> +1d4, 
+16~19 -> +2d4, 
+20 -> +4d4', 
+'“Tiro reto”:
+Dispara uma bala em linha reta no alvo.
+1d20 + mod. inteligência. Gasto: 20 mana
+
+“Tiro frio”:
+Dispara uma bala imbuída em gelo em linha reta no alvo.
+1d16 + mod. inteligência + 1 stack de 1 acúmulo de lentidão + 2d4 de gélido perfurante. Gasto: 30 mana
+
+“Tiro sanguíneo”
+Dispara uma bala imbuída em sangue em linha reta no alvo, sacrificando parte do Hp.
+O Hp perdido é equivalente a 80% do dano dado.
+1d20 + mod. inteligência + 1 stack de 2 acúmulo de sangramento. Gasto: 30 mana e 5% do HP
+')
+;
+
 create table dadosPessoais (
 idDadosPessoais int primary key,
 nomePersonagem varchar(50) not null,
 nomeJogador varchar (50) not null,
 aparencia varchar(1000),
 historia varchar (3000),
-caracteristicasETalentos varchar (1000),
+caracteristicasETalentos varchar (2000),
 antecedente varchar (30),
 sobreposicao int,
 tesouros varchar (1000),
 
 foreign key (sobreposicao) references (idSobreposicao)
 );
+
+insert into dadosPessoais values
+(1, 'Simon Hayha', 'João', null, 'Simon Häyhä, o atirador lendário da Finlândia, se tornou uma figura quase mitológica durante a Guerra de Inverno (1939–1940). Em menos de 100 dias, eliminou mais de 500 inimigos, sozinho, nas florestas congeladas a -40°C da fronteira soviética.
+Camuflado na neve, imóvel como uma sombra branca, nunca usava mira telescópica — para não refletir a luz. Mas mesmo sem essa vantagem, nunca errou um tiro. Ninguém sabia como, mas seus disparos eram sempre letais. Precisos. Silenciosos. Mortais.
+Foi atingido uma única vez: um tiro no rosto. Mas antes de desmaiar, ergueu a arma e matou o atirador que o feriu — como se seu corpo recusasse aceitar a morte, movido por pura vontade. E sobreviveu.
+Naquele dia, nasceu a lenda. Um homem que a própria morte hesitou em levar. Um espírito da neve, do silêncio e da precisão:
+A Morte Branca.', 'Personalidade: Calmo e controlado,Reservado,frio (mas o  que será que a sua alma esconde de verdade?),Carismático (só quando quer e é extremamente raro),Persistente e focado,Extremamente paciente,Mentalmente forte e resiliente;
+
+(Apesar de sua frieza inabalável, Simon guarda uma atração silenciosa por vampiras — seres noturnos, letais e solitários, tão íntimos da morte quanto ele próprio. Talvez enxergue nelas um espelho sombrio de si mesmo… ou um vestígio da humanidade que há muito tentou sufocar.);
+Pode chegar a gostar de Succubus mas só uma muito muito especifica
+
+Altura: 1.60M       |  Idade: 19 anos
+Gostos específicos:
+Animais: Aves de Rapina ou cães de caça;
+Comida: Carne seca, sopa,pães, Água (o básico se n morre) Além de outros alimentos simples;
+
+Talentos:Tiro de precisão excepcional, mesmo sem mira ;
+Mestre em camuflagem e infiltração em qualquer  ambiente ( principalmente gelados);
+Habilidade incrível em sobrevivência em qualquer ambiente e temperatura (principalmente no frio extremo (-40°C);
+Reflexos rápidos e raciocínio tático apurado;
+Discreto e silencioso em seus movimentos;
+Forte resistência física e mental;
+Capacidade de manter a calma sob pressão extrema;', 'Fazendeiro', null, 'Bússola;
+Colarebte de lobo;
+Roupas: Conjunto de roupa militar branca e de frio extremo + máscara;')
+;
 
 create table personagem (
 idPersonagem int primary key,
@@ -146,6 +203,7 @@ fantasmaNobre int unique key,
 dadosPessoais int unique key,
 raca integer unique key,
 dataDaCriacao date,
+NPC boolean not null,
 
 foreign key (status) references (idStatus),
 foreign key (elemento) references (idElementos),
@@ -153,8 +211,7 @@ foreign key (classe) references (idClasse),
 foreign key (fantasmaNobre) references (idFantasmaNobre),
 foreign key (dadosPessoais) references (idDadosPessoais),
 foreign key (raca) references (idRacas)
-)
+);
 
 insert into personagem values
 (1,1,2,2,1,1,1,null)
-;
