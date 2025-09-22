@@ -214,4 +214,5 @@ foreign key (raca) references (idRacas)
 );
 
 insert into personagem values
-(1,1,2,2,1,1,1,null)
+(1,1,2,2,1,1,1,null,true)
+
