@@ -1,9 +1,9 @@
 # Fate-RPG
 Um projeto para a criação de um RPG inspirado em Fate/series.
 
-- Banco de dados: Ainda em criação
+- Banco de dados: Finalizado
 - Ficha: Em finalização
-- Livro do jogador: Começo de públicação
+- Livro do jogador: Em públicação
 - Livro do mestre: Construção na fase inicial
 - Livro dos monstros: Construção na fase inicial
 - Site para rola de dados: Sem previsão
