@@ -1,0 +1,27 @@
+	body {
+	background-color: gray;
+	
+	}
+	
+	button {
+	
+	background-color: pink;
+	height: 50px;
+	width: 100px;
+	text-align: center;
+	}
+	
+	.listaNomeFicha {
+	font-size: 30px;
+	color: palegreen;
+	text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+	}
+	
+	.imagemTesteArt{
+	height: 300px;
+	width: 200 px;
+	}
