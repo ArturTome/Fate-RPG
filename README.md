@@ -6,4 +6,4 @@ Um projeto para a criação de um RPG inspirado em Fate/series.
 - Livro do jogador: Em públicação
 - Livro do mestre: Construção na fase inicial
 - Livro dos monstros: Construção na fase inicial
-- Site para rola de dados: Sem previsão
+- Site: fase inicial de testes
