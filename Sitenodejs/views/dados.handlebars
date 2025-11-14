@@ -1,0 +1,151 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+	
+	<!-- Fonte temática -->
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+	
+	<!-- Ícone do site (Passivel a mudanças) -->
+    <link rel="icon" type="image" href="imagens/logoSite2.jpg">
+	<link rel="stylesheet" href="css/dados.css">
+    <title>Dado</title>
+</head>
+<body>
+	
+	<canvas id="manaBackground"></canvas>
+	
+	<!-- Topo do site -->
+    <header>
+    <h1 class="nomeando">Roletagem de Dados</h1>
+    </header>
+
+    <div class="container">
+        <label for="minimo" class="textoLabel">Dado Mínimo</label>
+        <input type="number" id="minimo" placeholder="Digite o dado mínimo">
+
+        <label for="maximo" class="textoLabel">Dado Máximo</label>
+        <input type="number" id="maximo" placeholder="Digite o dado máximo">
+
+        <label for="modificador" class="textoLabel">Modificador</label>
+        <input type="number" id="modificador" placeholder="Digite o modificador">
+
+        <br>
+        <button id="botaoRoletar">Roletar dado</button>
+        <a href="FrontPage.html"><button>Voltar</button></a>
+
+        <!-- Dado em emoji girando -->
+        <div id="animacaoDado" class="animacao-dado">🎲</div>
+        <div id="resultado" class="resultado"></div>
+    </div>
+
+    <script>
+    const botao = document.getElementById("botaoRoletar");
+    const dado = document.getElementById("animacaoDado");
+    const resultado = document.getElementById("resultado");
+
+    function rodarDado() {
+        const minimo = parseInt(document.getElementById("minimo").value);
+        const maximo = parseInt(document.getElementById("maximo").value);
+        const modificador = parseFloat(document.getElementById("modificador").value) || 0;
+
+        if (isNaN(minimo) || isNaN(maximo) || minimo > maximo) {
+            alert("Escuta aqui, seu imbecil, o MÍNIMO deve ser MENOR que o MÁXIMO. ANIMAL.");
+            return;
+        }
+
+        // Esconde resultado / inicia animação
+        resultado.textContent = "";
+        dado.style.display = "block";
+        dado.classList.add("girando");
+
+        // Após apertar o botão a animação rolagem dos dados
+        setTimeout(() => {
+            dado.classList.remove("girando");
+            dado.style.display = "none";
+
+            const roletagem = Math.floor(Math.random() * (maximo - minimo + 1)) + minimo;
+            const roletagemFinal = roletagem + modificador;
+
+            resultado.innerHTML = `
+                🎲 Resultado: <strong>${roletagem}</strong><br>
+                Modificador: ${modificador >= 0 ? '+' + modificador : modificador}<br>
+                <span class="resultado-final">Total Final: ${roletagemFinal}</span>
+            `;
+        }, 1000);
+    }
+
+    botao.addEventListener("click", rodarDado);
+	
+	const canvas = document.getElementById("manaBackground");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+class Particula {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.raio = Math.random() * 3 + 1; // tamanho inicial
+    this.velX = (Math.random() - 0.5) * 0.3;
+    this.velY = (Math.random() - 0.5) * 0.3;
+    this.alpha = Math.random() * 0.5 + 0.3;
+    this.delta = Math.random() * 0.05 + 0.01; // variação de brilho
+  }
+  desenhar() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.raio, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 105, 180, ${this.alpha})`;
+    ctx.shadowBlur = this.raio * 4;
+    ctx.shadowColor = "#ff4db8";
+    ctx.fill();
+  }
+  atualizar() {
+    this.x += this.velX;
+    this.y += this.velY;
+
+    // Particulas rosinhas pulsando suavemente
+    this.alpha += this.delta;
+    if (this.alpha > 0.8 || this.alpha < 0.3) this.delta = -this.delta;
+
+    this.raio += this.delta / 2;
+    if (this.raio > 4) this.raio = 4;
+    if (this.raio < 1) this.raio = 1;
+
+    // Particulas rosinhas voltarem a aparecer
+    if (this.x < 0) this.x = canvas.width;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.y < 0) this.y = canvas.height;
+    if (this.y > canvas.height) this.y = 0;
+  }
+}
+
+const particulas = [];
+for (let i = 0; i < 150; i++) {
+  particulas.push(new Particula());
+}
+
+function animar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const p of particulas) {
+    p.atualizar();
+    p.desenhar();
+  }
+  requestAnimationFrame(animar);
+}
+
+animar();
+    </script>
+
+    <!-- Creditos do site -->
+	<footer>
+        <p>© 2025 Fate/RRR — Inspirado em <i>Fate/Series</i>. Desenvolvido por Artur Tomé.</p>
+    </footer>
+	
+</body>
+</html>
