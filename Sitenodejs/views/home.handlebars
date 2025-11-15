@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fate/RRR</title>
+    
+    <!-- Fonte temática -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícone do site (Passivel a mudanças) -->
+    <link rel="icon" type="image" href="imagens/logoSite1.jpg">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+
+	<canvas id="manaBackground"></canvas>
+
+    <!-- Topo do site -->
+    <header>
+        <h1 class="nomeando">Fate / RRR</h1>
+        <p class="subtitulo">Sistema de RPG Inspirado em Fate/Series</p>
+    </header>
+
+    <!-- Parte Principal do site -->
+    <main>
+        <section class="container">
+            <h2>Funções Gerais</h2>
+            <ul class="lista-funcoes">
+                <li>
+                    <a href="https://www.canva.com/design/DAGxf4Tf--s/rk4m_EKRnvmhQdxb3C6cQA/edit?utm_content=DAGxf4Tf--s&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+                        <button class="botaoLista">Ficha Base</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dados">
+                        <button class="botaoLista">Roletar Dados</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="/personagensPub">
+                        <button class="botaoLista">personagens públicos</button>
+                    </a>
+                </li>
+                <li>
+					<a href="/historico">
+                    <button class="botaoLista">Histórico do RPG</button>
+                </li>
+                <li>
+                    <a href="https://github.com/ArturTome/Fate-RPG/tree/main">
+                        <button class="botaoLista">GitHub do RPG</button>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+	
+    <main>
+        <section class="container">
+            <h2>Funções do usuario</h2>
+            <ul class="lista-funcoes">
+                <li>
+                    <a href="">
+                        <button class="botaoLista">sing in</button>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <button class="botaoLista">sing up</button>
+                    </a>
+                </li>
+                <li>
+                    <button class="botaoLista">personagens</button>
+                </li>
+                <li>
+                    <a href="">
+                        <button class="botaoLista">dados pessoais</button>
+                    </a>
+                </li>
+                <li>
+                    <button class="botaoLista">Configurações de usuario</button>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+	<script>
+const canvas = document.getElementById("manaBackground");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+class Particula {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.raio = Math.random() * 3 + 1; // tamanho inicial
+    this.velX = (Math.random() - 0.5) * 0.3;
+    this.velY = (Math.random() - 0.5) * 0.3;
+    this.alpha = Math.random() * 0.5 + 0.3;
+    this.delta = Math.random() * 0.05 + 0.01; // variação de brilho
+  }
+  desenhar() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.raio, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 105, 180, ${this.alpha})`;
+    ctx.shadowBlur = this.raio * 4;
+    ctx.shadowColor = "#ff4db8";
+    ctx.fill();
+  }
+  atualizar() {
+    this.x += this.velX;
+    this.y += this.velY;
+
+    // Particulas rosinhas pulsando suavemente
+    this.alpha += this.delta;
+    if (this.alpha > 0.8 || this.alpha < 0.3) this.delta = -this.delta;
+
+    this.raio += this.delta / 2;
+    if (this.raio > 4) this.raio = 4;
+    if (this.raio < 1) this.raio = 1;
+
+    // Particulas rosinhas voltarem a aparecer
+    if (this.x < 0) this.x = canvas.width;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.y < 0) this.y = canvas.height;
+    if (this.y > canvas.height) this.y = 0;
+  }
+}
+
+const particulas = [];
+for (let i = 0; i < 150; i++) {
+  particulas.push(new Particula());
+}
+
+function animar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const p of particulas) {
+    p.atualizar();
+    p.desenhar();
+  }
+  requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
+
+    <!-- Creditos do site -->
+    <footer>
+        <p>© 2025 Fate/RRR — Inspirado em <i>Fate/Series</i>. Desenvolvido por Artur Tomé.</p>
+    </footer>
+</body>
+</html>
