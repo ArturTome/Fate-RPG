@@ -8,3 +8,11 @@ Um projeto para a criação de um RPG inspirado em Fate/series.
 - Livro dos monstros: Sem previsão de publicação
 - Site: fase inicial de testes (Feito Node.js e Handlebars)
 - Discord do RPG: Sem previsão de publicação, apenas ideias, sem comprovação de ter no futuro
+
+
+
+
+
+- Créditos:
+- Artur Tomé
+- João Guilherme
